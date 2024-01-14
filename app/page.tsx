@@ -1,8 +1,11 @@
-import { Button } from '@/components/ui/button'
-import Image from 'next/image'
+import { UserButton } from "@clerk/nextjs";
 
 export default function Home() {
   return (
-    <Button variant="default" >Click me</Button>
+    <div className="flex flex-col gap-2">
+      <p>Only authenticated users can see this page</p>
+      <p>Dashboard</p>
+      <UserButton afterSignOutUrl="/" />
+    </div>
   )
 }
