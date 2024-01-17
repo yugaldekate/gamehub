@@ -13,6 +13,8 @@
     "@clerk/themes": "^1.7.9",
     "@prisma/client": "^5.8.1",
     "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-tooltip": "^1.0.7",
+    "add": "^2.0.6",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "lucide-react": "^0.309.0",
@@ -21,9 +23,12 @@
     "query-string": "^8.1.0",
     "react": "^18",
     "react-dom": "^18",
+    "shadcn-ui": "^0.8.0",
     "svix": "^1.15.0",
     "tailwind-merge": "^2.2.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "usehooks-ts": "^2.9.4",
+    "zustand": "^4.4.7"
   },
   "devDependencies": {
     "@types/node": "^20",
