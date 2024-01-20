@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { useSidebar } from "@/store/use-sidebar";
 
 import { ToggleSkeleton } from "./toggle";
+import { FollowingSkeleton } from "./following";
 import { RecommendedSkeleton } from "./recommended";
 
 interface WrapperProps {
@@ -16,11 +17,12 @@ export const Wrapper = ({children} : WrapperProps) => {
     const isClient = useIsClient();
     const { collapsed } = useSidebar((state) => state);
 
-    //if it a server component at initil load
+    //when serverside rendering is going at initil load
     if (!isClient) {
         return (
             <aside className="fixed left-0 flex flex-col w-[70px] lg:w-60 h-full bg-background border-r border-[#2D2E35] z-50">
                 <ToggleSkeleton />
+                <FollowingSkeleton/>
                 <RecommendedSkeleton />
             </aside>
         );

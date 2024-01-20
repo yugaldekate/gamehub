@@ -1,6 +1,25 @@
 import { db } from "@/lib/db";
 import { getSelf } from "@/lib/auth-service";
 
+export const getFollowedUsers = async () => {
+  try {
+    const self = await getSelf();
+
+    const followedUsers = db.follow.findMany({
+        where: {
+            followerId: self.id,
+        },
+        include: {
+            following: true,
+        },
+    });
+
+        return followedUsers;
+    } catch {
+        return [];
+    }
+};
+
 //checking if current logged-in user is following the otherUser
 export const isFollowingUser = async (id: string) => {
     try {
@@ -69,8 +88,8 @@ export const followUser = async (id: string) => {
             followingId: otherUser.id,
         },
         include: {
-            following: true,
             follower: true,
+            following: true,
         },
     });
   
