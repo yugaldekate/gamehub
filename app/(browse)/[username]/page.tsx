@@ -26,7 +26,7 @@ const UserPage = async ({ params }: UserPageProps) => {
     }
 
     return (
-        <div>
+        <div className="flex flex-col gap-y-2">
             <p>{user?.id}</p>
             <p>{user?.externalUserId}</p>
             <p>{user?.username}</p>
