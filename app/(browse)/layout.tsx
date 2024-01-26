@@ -9,6 +9,7 @@ const BrowseLayout = ({ children } : { children: React.ReactNode }) => {
         <>
             <Navbar />
             <div className="flex h-full pt-20">
+                {/* suspense can only be used for components not for pages */}
                 <Suspense fallback={<SidebarSkeleton />}>
                     <Sidebar />
                 </Suspense>
