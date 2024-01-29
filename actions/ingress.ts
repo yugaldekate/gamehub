@@ -1,7 +1,8 @@
 "use server";
 
-import { IngressAudioEncodingPreset, IngressInput, IngressClient, 
-    IngressVideoEncodingPreset, RoomServiceClient, type CreateIngressOptions } from "livekit-server-sdk";
+import { IngressAudioEncodingPreset, IngressInput, IngressClient, IngressVideoEncodingPreset,
+    RoomServiceClient, type CreateIngressOptions,
+} from "livekit-server-sdk";
 
 import { TrackSource } from "livekit-server-sdk/dist/proto/livekit_models";
 
@@ -21,13 +22,13 @@ export const resetIngresses = async (hostIdentity: string) => {
     const ingresses = await ingressClient.listIngress({
         roomName: hostIdentity,
     });
-  
+
     const rooms = await roomService.listRooms([hostIdentity]);
-  
+
     for (const room of rooms) {
         await roomService.deleteRoom(room.name);
     }
-  
+
     for (const ingress of ingresses) {
         if (ingress.ingressId) {
             await ingressClient.deleteIngress(ingress.ingressId);
@@ -37,16 +38,16 @@ export const resetIngresses = async (hostIdentity: string) => {
 
 export const createIngress = async (ingressType: IngressInput) => {
     const self = await getSelf();
-  
+
     await resetIngresses(self.id);
-  
+
     const options: CreateIngressOptions = {
         name: self.username,
         roomName: self.id,
         participantName: self.username,
         participantIdentity: self.id,
     };
-  
+
     if (ingressType === IngressInput.WHIP_INPUT) {
         options.bypassTranscoding = true;
     } else {
@@ -59,27 +60,25 @@ export const createIngress = async (ingressType: IngressInput) => {
             preset: IngressAudioEncodingPreset.OPUS_STEREO_96KBPS
         };
     };
-  
+
     const ingress = await ingressClient.createIngress(
         ingressType,
         options,
     );
-  
+
     if (!ingress || !ingress.url || !ingress.streamKey) {
         throw new Error("Failed to create ingress");
     }
-  
+
     await db.stream.update({
-        where: { 
-            userId: self.id 
-        },
-        data: {
-            ingressId: ingress.ingressId,
-            serverUrl: ingress.url,
-            streamKey: ingress.streamKey,
-        },
+        where: { userId: self.id },
+            data: {
+                ingressId: ingress.ingressId,
+                serverUrl: ingress.url,
+                streamKey: ingress.streamKey,
+            },
     });
-  
-    revalidatePath(`/u/${self.username}/keys`);
-    return ingress;
+
+  revalidatePath(`/u/${self.username}/keys`);
+  return ingress;
 };

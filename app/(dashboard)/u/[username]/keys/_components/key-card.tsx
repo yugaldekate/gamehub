@@ -16,7 +16,7 @@ export const KeyCard = ({ value }: KeyCardProps) => {
 
     return (
         <div className="rounded-xl bg-muted p-6">
-            <div className="flex items-start gap-x-10">
+            <div className="flex items-start gap-x-10 max-lg:flex-col">
                 <p className="font-semibold shrink-0">
                     Stream Key
                 </p>
