@@ -11,6 +11,7 @@ import { Video, VideoSkeleton } from "./video";
 import { Chat, ChatSkeleton } from "./chat";
 import { ChatToggle } from "./chat-toggle";
 import { Header, HeaderSkeleton } from "./header";
+import { InfoCard } from "./info-card";
 
 type CustomStream = {
     id: string;
@@ -70,6 +71,12 @@ const StreamPlayer = ({ user, stream, isFollowing } : StreamPlayerProps) => {
                         hostIdentity={user.id}
                         viewerIdentity={identity}
                         isFollowing={isFollowing}
+                    />
+                    <InfoCard
+                        hostIdentity={user.id}
+                        viewerIdentity={identity}
+                        name={stream.name}
+                        thumbnailUrl={stream.thumbnailUrl}
                     />
                 </div>
 
