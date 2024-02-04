@@ -119,3 +119,19 @@ export const unblockUser = async (id: string) => {
   
     return unblock;
 };
+
+//get all the users blocked by the currently logged-in user
+export const getBlockedUsers = async () => {
+    const self = await getSelf();
+  
+    const blockedUsers = await db.block.findMany({
+        where: {
+            blockerId: self.id,
+        },
+        include: {
+            blocked: true,
+        },
+    });
+  
+    return blockedUsers;
+};
