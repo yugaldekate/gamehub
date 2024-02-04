@@ -18,12 +18,12 @@ export const getRecommended = async () => {
         users = await db.user.findMany({
             where: { 
                 AND:[
-                    {//not the logged-in user
+                    {// not the logged-in user
                         NOT: {
                             id: userId,
                         }
                     },
-                    { //not followed by the logged-in user
+                    { // not followed by the logged-in user
                      // User -> NOT{followedBy=[Follow, Follow] -> for each Follow -> followerId : userId}
                         NOT: {
                             followedBy: {
@@ -32,18 +32,56 @@ export const getRecommended = async () => {
                                 }
                             }
                         }
+                    },
+                    {// not blocked by the logged-in user
+                     // User -> NOT{blocking = [Block, Block] -> for each Block -> blockedId : userId}   
+                        NOT: {
+                            blocking: {
+                                some: {
+                                    blockedId: userId,
+                                },
+                            },
+                        },
                     }
                 ],
             },
-            orderBy:{
-                createdAt: "desc"
-            }
+            include: {
+                stream: {
+                    select: {
+                        isLive: true,
+                    },
+                },
+            },
+            orderBy: [
+                {
+                    stream: {
+                        isLive: "desc",
+                    }
+                },
+                {
+                    createdAt: "desc"
+                },
+            ]
         })
     }else{
         users = await db.user.findMany({
-            orderBy:{
-                createdAt: "desc"
-            }
+            include: {
+                stream: {
+                    select: {
+                        isLive: true,
+                    },
+                },
+            },
+            orderBy: [
+                {
+                    stream: {
+                        isLive: "desc",
+                    }
+                },
+                {
+                    createdAt: "desc"
+                },
+            ]
         });
     }
 

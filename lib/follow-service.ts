@@ -7,11 +7,38 @@ export const getFollowedUsers = async () => {
 
     const followedUsers = db.follow.findMany({
         where: {
-            followerId: self.id,
+            followerId: self.id, //if logged-in user is following the other user
+            following: {        //checking if the other user has blocked the logged-in user
+                blocking: {
+                    none: {
+                        blockedId: self.id,
+                    },
+                },
+            },
         },
         include: {
-            following: true,
+            following: {
+                include: {
+                    stream: {
+                        select: {
+                            isLive: true,
+                        },
+                    },
+                },
+            },
         },
+        orderBy: [
+            {
+                following: {
+                    stream: {
+                        isLive: "desc",
+                    },
+                },
+            },
+            {
+                createdAt: "desc"
+            },
+        ]
     });
 
         return followedUsers;
