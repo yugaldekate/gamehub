@@ -44,9 +44,7 @@ export const ChatCommunity = ({ hostName, viewerName, isHidden }: ChatCommunityP
             return participant.name?.toLowerCase().includes(debouncedValue.toLowerCase())
         });
     }, [participants, debouncedValue]);
-
-    console.log("Filter :", filteredParticipants);
-    
+   
 
     if (isHidden) {
         return (
