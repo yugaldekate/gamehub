@@ -23,10 +23,7 @@ export const ChatCommunity = ({ hostName, viewerName, isHidden }: ChatCommunityP
     const debouncedValue = useDebounce<string>(value, 500);
 
     const participants = useParticipants();// get all participants of the stream
-
-    console.log("Participant", participants);
-    
-
+   
     const onChange = (newValue: string) => {
         setValue(newValue);
     };
