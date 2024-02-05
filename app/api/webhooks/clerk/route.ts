@@ -56,6 +56,8 @@ export async function POST(req: Request) {
     const eventType = evt.type;
 
     if (eventType === "user.created") {
+        console.log("Creating user started");
+        
         await db.user.create({
             data: {
                 externalUserId: payload.data.id,
@@ -68,6 +70,7 @@ export async function POST(req: Request) {
                 }
             },
         });
+        console.log("Creating user done");
     }
 
     if (eventType === "user.updated") {
