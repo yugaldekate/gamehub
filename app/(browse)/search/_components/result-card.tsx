@@ -6,6 +6,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { VerifiedMark } from "@/components/verified-mark";
 import { Thumbnail, ThumbnailSkeleton } from "@/components/thumbnail";
 
+interface CustomUser {
+    imageUrl: string,
+    username: string,
+}
+
 interface ResultCardProps {
     data: {
         id: string;
@@ -13,11 +18,14 @@ interface ResultCardProps {
         thumbnailUrl: string | null;
         isLive: boolean;
         updatedAt: Date;
-        user: User;
+        user: CustomUser;
     };
 };
 
 export const ResultCard = ({ data }: ResultCardProps) => {
+
+    const dateFromNow = formatDistanceToNow(new Date(data.updatedAt), { addSuffix: true });
+
     return (
         <Link href={`/${data.user.username}`}>
             <div className="w-full flex gap-x-4">
@@ -40,9 +48,7 @@ export const ResultCard = ({ data }: ResultCardProps) => {
                         {data.name}
                     </p>
                     <p className="text-sm text-muted-foreground">
-                        {formatDistanceToNow(new Date(data.updatedAt), {
-                            addSuffix: true,
-                        })}
+                        {dateFromNow}
                     </p>
                 </div>
             </div>

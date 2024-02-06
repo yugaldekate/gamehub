@@ -16,9 +16,13 @@ export const getFollowedUsers = async () => {
                 },
             },
         },
-        include: {
+        select: {
+            id: true,
             following: {
-                include: {
+                select: {
+                    id: true,
+                    username: true,
+                    imageUrl: true,
                     stream: {
                         select: {
                             isLive: true,
@@ -115,12 +119,15 @@ export const followUser = async (id: string) => {
             followingId: otherUser.id,
         },
         include: {
-            follower: true,
-            following: true,
+            following: {
+                select: {
+                    username: true,
+                }
+            },
         },
     });
   
-    return follow;
+    return {success : follow.following.username};
 };
 
 // Current logged-in user unfollow otherUser
@@ -157,9 +164,13 @@ export const unfollowUser = async (id: string) => {
             id: existingFollow.id,
         },
         include: {
-            following: true,
+            following: {
+                select:{
+                    username: true,
+                }
+            },
         },
     });
   
-    return follow;
+    return {success : follow.following.username};
 };

@@ -28,7 +28,12 @@ export const getStreams = async () => {
             },
             select: {
                 id: true,
-                user: true,
+                user: {
+                    select: {
+                        username: true,
+                        imageUrl: true,
+                    }
+                },
                 isLive: true,
                 name: true,
                 thumbnailUrl: true,

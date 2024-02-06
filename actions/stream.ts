@@ -40,7 +40,7 @@ export const updateStream = async (values: Partial<Stream>) => {
         revalidatePath(`/u/${self.username}`);
         revalidatePath(`/${self.username}`);
 
-        return stream;
+        return {success : true};
     } catch {
         throw new Error("Internal Error");
     };

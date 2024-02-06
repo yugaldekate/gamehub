@@ -76,7 +76,12 @@ export const getSearch = async (term?: string) => {
                 ],
             },
             select: {
-                user: true,
+                user: {
+                    select: {
+                        imageUrl: true,
+                        username: true,
+                    }
+                },
                 id: true,
                 name: true,
                 isLive: true,
