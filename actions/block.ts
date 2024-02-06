@@ -20,9 +20,9 @@ export const onBlock = async (id: string) => {
     let blockedUser;
 
     try {
-        blockedUser = await blockUser(id);
+        blockedUser = await blockUser(id);//update the block in database
     } catch {
-        // This means user is a guest, and update the block in database
+        // This means user is a guest
     }
 
     try {

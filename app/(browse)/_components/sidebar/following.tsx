@@ -6,9 +6,15 @@ import { useSidebar } from "@/store/use-sidebar";
 
 import { UserItem, UserItemSkeleton } from "./user-item";
 
+interface CustomUser {
+    id: string,
+    username: string,
+    imageUrl: string,
+}
+
 interface FollowingProps {
-    data: (Follow & { 
-        following: User & {
+    data: ({id: string} & { 
+        following: CustomUser & {
             stream: { isLive: boolean } | null;
         },
     })[];

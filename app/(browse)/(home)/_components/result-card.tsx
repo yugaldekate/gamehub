@@ -6,9 +6,14 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Thumbnail, ThumbnailSkeleton } from "@/components/thumbnail";
 import { UserAvatar, UserAvatarSkeleton } from "@/components/user-avatar";
 
+interface CustomUser{
+    imageUrl: string,
+    username: string,
+}
+
 interface ResultCardProps {
     data: {
-        user: User,
+        user: CustomUser,
         isLive: boolean;
         name: string;
         thumbnailUrl: string | null;

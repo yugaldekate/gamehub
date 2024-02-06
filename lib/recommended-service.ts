@@ -45,7 +45,10 @@ export const getRecommended = async () => {
                     }
                 ],
             },
-            include: {
+            select: {
+                id: true,
+                username: true,
+                imageUrl:true,
                 stream: {
                     select: {
                         isLive: true,

@@ -30,7 +30,7 @@ export const CommunityItem = ({ hostName, viewerName, participantIdentity, parti
 
         startTransition(() => {
             onBlock(participantIdentity)
-                .then(() => toast.success(`Blocked ${participantName}`))
+                .then((data) => toast.success(`Blocked ${data?.success}`))
                 .catch(() => toast.error("Something went wrong"));
         });
     }

@@ -72,11 +72,15 @@ export const blockUser = async (id: string) => {
             blockedId: otherUser.id,
         },
         include: {
-            blocked: true,
+            blocked: {
+                select: {
+                    username: true,
+                }
+            },
         },
     });
   
-    return block;
+    return {success : block.blocked.username};
 };
   
 //currently logged-in user is un-blocking the other user
@@ -113,11 +117,15 @@ export const unblockUser = async (id: string) => {
             id: existingBlock.id,
         },
         include: {
-            blocked: true,
+            blocked: {
+                select: {
+                    username: true,
+                }
+            },
         },
     });
   
-    return unblock;
+    return {success : unblock.blocked.username};
 };
 
 //get all the users blocked by the currently logged-in user
