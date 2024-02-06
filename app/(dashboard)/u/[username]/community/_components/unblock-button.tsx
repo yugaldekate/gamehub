@@ -16,7 +16,7 @@ export const UnblockButton = ({ userId }: UnblockButtonProps) => {
     const onClick = () => {
         startTransition(() => {
             onUnblock(userId)
-                .then((result) => toast.success(`User ${result.blocked.username} unblocked`))
+                .then((result) => toast.success(`User ${result.success} unblocked`))
                 .catch(() => toast.error("Something went wrong"))
             });
     };
