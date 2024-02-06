@@ -1,3 +1,5 @@
+import { currentUser } from "@clerk/nextjs";
+
 import { notFound } from "next/navigation";
 
 import { getUserByUsername } from "@/lib/user-service";
@@ -14,6 +16,7 @@ interface UserPageProps {
 
 const UserPage = async ({ params }: UserPageProps) => {
 
+    const externalUser = await currentUser();
     const user = await getUserByUsername(params.username);
 
     if (!user || !user.stream) {
@@ -28,11 +31,14 @@ const UserPage = async ({ params }: UserPageProps) => {
 
     const isFollowing = await isFollowingUser(user.id);
 
+    const isLoggedIn = externalUser?.id ? true : false;   
+
     return (
         <StreamPlayer
             user={user}
             stream={user.stream}
             isFollowing={isFollowing}
+            isLoggedIn={isLoggedIn}
         />
     )
 }

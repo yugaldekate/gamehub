@@ -17,9 +17,10 @@ interface HeaderProps {
     hostIdentity: string;
     viewerIdentity: string;
     isFollowing: boolean;
+    isLoggedIn:boolean;
 };
 
-export const Header = ({ name, imageUrl, hostName, hostIdentity, viewerIdentity, isFollowing }: HeaderProps) => {
+export const Header = ({ name, imageUrl, hostName, hostIdentity, viewerIdentity, isFollowing, isLoggedIn }: HeaderProps) => {
     const participants = useParticipants();
     const participant = useRemoteParticipant(hostIdentity);
 
@@ -68,6 +69,7 @@ export const Header = ({ name, imageUrl, hostName, hostIdentity, viewerIdentity,
                     isHost={isHost}
                     isFollowing={isFollowing}
                     hostIdentity={hostIdentity}
+                    isLoggedIn={isLoggedIn}
                 />
             }
         </div>

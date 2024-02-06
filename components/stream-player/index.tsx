@@ -39,9 +39,10 @@ interface StreamPlayerProps {
     user: CustomUser;
     stream: CustomStream;
     isFollowing: boolean;
+    isLoggedIn:boolean,
 }
 
-const StreamPlayer = ({ user, stream, isFollowing } : StreamPlayerProps) => {
+const StreamPlayer = ({ user, stream, isFollowing, isLoggedIn } : StreamPlayerProps) => {
 
     const { token, name, identity } = useViewerToken(user.id);   
 
@@ -75,6 +76,7 @@ const StreamPlayer = ({ user, stream, isFollowing } : StreamPlayerProps) => {
                         hostIdentity={user.id}
                         viewerIdentity={identity}
                         isFollowing={isFollowing}
+                        isLoggedIn={isLoggedIn}
                     />
                     <InfoCard
                         hostIdentity={user.id}

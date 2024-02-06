@@ -6,8 +6,6 @@ import { Heart } from "lucide-react";
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 
-import { useAuth } from "@clerk/nextjs";
-
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -18,11 +16,11 @@ interface ActionsProps {
     hostIdentity: string;
     isFollowing: boolean;
     isHost: boolean;
+    isLoggedIn: boolean;
 };
 
-export const Actions = ({ hostIdentity, isFollowing, isHost }: ActionsProps) => {
+export const Actions = ({ hostIdentity, isFollowing, isHost, isLoggedIn }: ActionsProps) => {
     const router = useRouter();
-    const { userId } = useAuth();
     
     const [isPending, startTransition] = useTransition();
     
@@ -43,7 +41,7 @@ export const Actions = ({ hostIdentity, isFollowing, isHost }: ActionsProps) => 
     }
 
     const toggleFollow = () => {
-        if (!userId) {
+        if (!isLoggedIn) {
             return router.push("/sign-in");
         }
 

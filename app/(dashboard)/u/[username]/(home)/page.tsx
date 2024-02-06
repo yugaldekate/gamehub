@@ -25,13 +25,16 @@ const CreatorPage = async ({params} : CreatorPageProps) => {
     if (!user || user.externalUserId !== externalUser?.id || !user.stream) {
         throw new Error("Unauthorized");
     }
-    
+
+    const isLoggedIn = externalUser.id ? true : false;    
+
     return ( 
         <div>
             <StreamPlayer 
                 user={user} 
                 stream={user.stream} 
                 isFollowing={isFollowing}
+                isLoggedIn={isLoggedIn}
             />
         </div>
     );

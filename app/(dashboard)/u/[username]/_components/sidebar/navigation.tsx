@@ -1,14 +1,18 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import { Fullscreen, KeyRound, MessageSquare, Users } from "lucide-react";
 
 import { NavItem, NavItemSkeleton } from "./nav-item";
+import { User } from "@prisma/client";
 
-export const Navigation = () => {
+
+interface NavigationParams {
+    user: User,
+}
+
+export const Navigation = ({user} : NavigationParams) => {
     const pathname = usePathname();
-    const { user } = useUser();
 
     if (!user?.username) {
         return (
