@@ -6,8 +6,15 @@ import { useSidebar } from "@/store/use-sidebar";
 
 import { UserItem, UserItemSkeleton } from "./user-item";
 
+interface CustomUser {
+    id: string,
+    username: string,
+    imageUrl: string,
+}
+
+
 interface RecommendedProps {
-    data: (User & {
+    data: (CustomUser & {
         stream: { isLive: boolean } | null;
     })[];
 };
